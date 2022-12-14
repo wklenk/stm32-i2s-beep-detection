@@ -152,7 +152,7 @@ void loop() {
           FFT.ComplexToMagnitude(vReal, vImag, SAMPLES);                   /* Compute magnitudes */
           double peak_frequency = FFT.MajorPeak(vReal, SAMPLES, samplingFrequency);
 
-          if (peak_frequency > (stable_frequency * 0.95) && peak_frequency < (stable_frequency * 1.05)) {
+          if ((peak_frequency > 1200) && (peak_frequency > (stable_frequency * 0.95) && peak_frequency < (stable_frequency * 1.05))) {
             // (Almost) the same frequency
 
             if ((millis() - frequency_stable_start) > 250) {
@@ -170,7 +170,7 @@ void loop() {
               Serial.println(millis() - frequency_stable_start);
 
               // Send push notification
-              sendPushNotification();
+              // sendPushNotification();
 
               // Take a break to make sure that not several push
               // notifications are sent at once, as the beep code
