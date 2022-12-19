@@ -44,7 +44,7 @@ String hostname = "ESP32 Beep Detection";
 
 uint16_t current_sample = 0;
 const uint16_t SAMPLES = 512;  //This value MUST ALWAYS be a power of 2
-const double samplingFrequency = 44100;
+const double samplingFrequency = 48000;
 
 double stable_frequency;
 boolean is_stable = false;
@@ -59,7 +59,7 @@ void i2s_install() {
   // Set up I2S Processor configuration
   const i2s_config_t i2s_config = {
     .mode = i2s_mode_t(I2S_MODE_MASTER | I2S_MODE_RX),
-    .sample_rate = 4 * 44100,
+    .sample_rate = 48000,
     .bits_per_sample = i2s_bits_per_sample_t(16),
     .channel_format = I2S_CHANNEL_FMT_ONLY_LEFT,
     .communication_format = i2s_comm_format_t(I2S_COMM_FORMAT_STAND_I2S),
@@ -137,7 +137,7 @@ void loop() {
 
   if (result == ESP_OK) {
     // Read I2S data buffer
-    int16_t samples_read = bytesIn / 8;
+    int16_t samples_read = bytesIn / 2;
     if (samples_read > 0) {
       for (int16_t i = 0; i < samples_read; ++i) {
         vReal[current_sample] = (sBuffer[i]);
@@ -175,7 +175,7 @@ void loop() {
               // Take a break to make sure that not several push
               // notifications are sent at once, as the beep code
               // might be immediately repeated.
-              delay(60*1000);
+              // delay(60*1000);
             }
 
             stable_frequency = peak_frequency;
