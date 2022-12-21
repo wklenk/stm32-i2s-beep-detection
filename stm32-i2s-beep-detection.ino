@@ -69,7 +69,10 @@ void i2s_install() {
     .use_apll = false
   };
 
-  i2s_driver_install(I2S_PORT, &i2s_config, 0, NULL);
+  esp_err_t result = i2s_driver_install(I2S_PORT, &i2s_config, 0, NULL);
+  if (result != ESP_OK) {
+    Serial.println("Error at i2s_driver_install");
+  }
 }
 
 void i2s_setpin() {

@@ -37,6 +37,14 @@ I2S_SCK <--> D26
 Note: I had some problem with selecting the **left** channel for the INMP441- Either the 
 data sheets are wrong, or the manufacturer does not stick to it for some versions of it.
 
+## I2S Signals in Logic Analyzer
+
+The Word Select (WS) signal equals the sample rate of 44.100 kHz.
+
+The Serial Clock (SCK) is 2 x 16 x 44100 Hz = 1.54 MHz
+
+![I2S Signals in Logic Analyzer](i2s-logic-analyzer.png "I2S Signals in Logic Analyzer")
+
 ## How it works
 
 STM32 microcontrollers already has Wi-Fi on board, so it is easy to connect
